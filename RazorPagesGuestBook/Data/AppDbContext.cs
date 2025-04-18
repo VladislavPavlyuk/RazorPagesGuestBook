@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace RazorPagesGuestBook.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class AppDbContext : IdentityDbContext
     {
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -33,7 +33,7 @@ namespace RazorPagesGuestBook.Data
 
         public DbSet<Message> Messages { get; set; }
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
         {
         }

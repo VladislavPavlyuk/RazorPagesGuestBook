@@ -11,7 +11,7 @@ using RazorPagesGuestBook.Data;
 
 namespace RazorPagesGuestBook.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(AppDbContext))]
     [Migration("20250415104949_InitialCreate")]
     partial class InitialCreate
     {
