@@ -49,7 +49,7 @@ namespace RazorPagesGuestBook.Pages
             }
 
             // Remove Message.User from ModelState validation
-            //ModelState.Remove("Message.User");
+            ModelState.Remove("Message.UserId");
 
             if (!ModelState.IsValid || _context.Messages == null || Message == null)
             {

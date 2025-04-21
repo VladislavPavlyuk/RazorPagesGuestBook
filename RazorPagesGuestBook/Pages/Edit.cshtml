@@ -26,9 +26,10 @@
                 <span asp-validation-for="Message.CreatedAt" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Message.User.Email" class="control-label"></label>
-                <input asp-for="Message.User.Email" class="form-control" />
-                <span asp-validation-for="Message.User.Email" class="text-danger"></span>
+                <label asp-for="Message.User.UserName" class="control-label"></label>
+                <label class="form-control">
+                    @Html.DisplayFor(model => model.Message.User.UserName)
+                </label>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

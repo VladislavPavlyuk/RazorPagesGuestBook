@@ -5,7 +5,10 @@
 }
 
 <p>
-    <a asp-page="Create">Create New</a>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <a class="btn btn-info" asp-page="Create">Create New</a>
+    }
 </p>
 <table class="table">
     <thead>
@@ -17,7 +20,7 @@
                 @Html.DisplayNameFor(model => model.Message[0].CreatedAt)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Message[0].UserId)
+                @Html.DisplayNameFor(model => model.Message[0].User.UserName)
             </th>
             <th></th>
         </tr>
@@ -33,15 +36,21 @@
                     @Html.DisplayFor(modelItem => item.CreatedAt)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UserId)
+                    @Html.DisplayFor(modelItem => item.User.UserName)
                 </td>
                 <td>
-                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a class="btn btn-warning" asp-page="./Edit" asp-route-id="@item.Id">Edit</a>
+                        <s> </s>
+                        <a class="btn btn-success" asp-page="./Details" asp-route-id="@item.Id">Details</a>
+                        <s> </s>
+                        <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    }
                 </td>
             </tr>
         }
     </tbody>
+    
 </table>
 

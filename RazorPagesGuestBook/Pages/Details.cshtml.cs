@@ -23,7 +23,11 @@ namespace RazorPagesGuestBook.Pages
                 return NotFound();
             }
 
-            var message = await _context.Messages.FirstOrDefaultAsync(m => m.Id == id);
+            //var message = await _context.Messages.FirstOrDefaultAsync(m => m.Id == id);
+            var message = await _context.Messages
+                .Include(m => m.User) // Eagerly load the User navigation property
+                .FirstOrDefaultAsync(m => m.Id == id);
+
             if (message == null)
             {
                 return NotFound();

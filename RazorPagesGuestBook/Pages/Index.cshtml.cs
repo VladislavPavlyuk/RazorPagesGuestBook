@@ -19,7 +19,11 @@ namespace RazorPagesGuestBook.Pages
         {
             if (_context.Messages != null)
             {
-                Message = await _context.Messages.ToListAsync();
+                //Message = await _context.Messages.ToListAsync();
+                Message = await _context.Messages
+                        .Include(m => m.User) // Eagerly load the User navigation property
+                        .OrderByDescending(m => m.CreatedAt) // Order messages by CreatedAt
+                        .ToListAsync();
             }
         }
 

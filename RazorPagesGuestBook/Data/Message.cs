@@ -12,7 +12,7 @@ namespace RazorPagesGuestBook.Data
         [StringLength(500, ErrorMessage = "Content cannot exceed 500 characters.")]
         public string? Content { get; set; }
 
-        [DataType(DataType.Date)] 
+        [DataType(DataType.DateTime)] 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         // Связь с AspNetUsers  
