@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RazorPagesGuestBook.Data;
+using RazorPagesGuestBook.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,18 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<AppDbContext>();
 builder.Services.AddRazorPages();
+
+builder.Services.AddScoped<IRepository, Repository>();
+builder.Services.AddScoped<Message>();
+
+builder.Services.AddScoped<Message>(provider => new Message { Content = "Default content" });
+
+
+// Build the service provider
+var serviceProvider = builder.Services.BuildServiceProvider();
+
+// Retrieve the service
+var service = serviceProvider.GetService<IEnumerable<Message>>();
 
 var app = builder.Build();
 

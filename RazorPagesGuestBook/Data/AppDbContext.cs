@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace RazorPagesGuestBook.Data
@@ -31,11 +32,30 @@ namespace RazorPagesGuestBook.Data
             });
         }
 
-        public DbSet<Message> Messages { get; set; }
+        public DbSet<Message> Messages { get; set; }      
+        public List<IdentityRole> UserRoles { get; private set; }
+        public DbSet<IdentityUser> Users { get; set; } 
 
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
         {
+            if (Database.EnsureCreated())
+            {
+                UserRoles = new List<IdentityRole>
+                    {
+                        new IdentityRole { Name = "Admin", NormalizedName = "ADMIN" },
+                        new IdentityRole { Name = "User", NormalizedName = "USER" }
+                    };
+                foreach (var role in UserRoles)
+                {
+                    if (!Roles.Any(r => r.Name == role.Name))
+                    {
+                        Roles.Add(role);
+                    }
+                }
+
+                SaveChanges();
+            }
         }
     }
 }
